@@ -12,11 +12,17 @@ import {
   Slide,
   useTheme,
   useMediaQuery,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PersonIcon from "@mui/icons-material/Person";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import LogoutIcon from "@mui/icons-material/Logout";
 import DOMPurify from 'dompurify';
 import appIcon from '../assets/nurva.png';
 import { useNavigate } from 'react-router-dom';
@@ -29,12 +35,50 @@ function Chat() {
   const [defaultScreen, setDefaultScreen] = useState(true);
   const [typingText, setTypingText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [userName, setUserName] = useState("");
 
   const chatContainerRef = useRef(null);
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+
+  const menuOpen = Boolean(anchorEl);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("https://olliebotai-2-o.onrender.com/api/me", {
+          method: "GET",
+          headers: {
+            "Authorization": token
+          }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('token');
+          navigate('/login', { replace: true });
+          return;
+        }
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.userFetch && data.userFetch.name) {
+            setUserName(data.userFetch.name);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+    if (!token) {
+      navigate('/login', { replace: true });
+    }
+  }, [navigate]);
 
   // Auto scroll to bottom
   useEffect(() => {
@@ -95,12 +139,23 @@ function Chat() {
     }
   }, [isTyping, typingText]);
 
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    handleMenuClose();
+    navigate('/', { replace: true });
+  };
+
   const sendMessage = async () => {
     const input = userInput.trim();
     if (!input) return;
-
-    let chatStatus = chatCount === 0 ? "Started" : "SaveChat";
-    setChatCount((prev) => prev + 1);
 
     const newMessages = [...messages, { sender: "user", text: input }];
     setMessages(newMessages);
@@ -109,15 +164,28 @@ function Chat() {
     setDefaultScreen(false);
 
     try {
-      const res = await fetch("https://olliebot-ai.onrender.com/prompt", {
+      const token = localStorage.getItem('token');
+      
+      const res = await fetch("https://olliebotai-2-o.onrender.com/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input, chatStatus }),
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": token
+        },
+        body: JSON.stringify({ input }),
       });
+
+      if (res.status === 401 || res.status === 403) {
+        // Token expired or invalid
+        localStorage.removeItem('token');
+        navigate('/login', { replace: true });
+        return;
+      }
+
       const data = await res.json();
 
       setIsLoading(false);
-      setTypingText(data.answer);
+      setTypingText(data.answer || data.response || "I'm here to help!");
       setIsTyping(true);
     } catch (err) {
       setIsLoading(false);
@@ -189,11 +257,13 @@ function Chat() {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Hi there, <span style={{ 
+              Hi there, 
+              <span
+               style={{ 
                 background: 'linear-gradient(135deg, #9f59ff 0%, #7c3aed 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-              }}>Sam</span>
+              }}> {userName}</span>
             </Typography>
             <Typography 
               variant={isMobile ? "body2" : "body1"} 
@@ -217,6 +287,42 @@ function Chat() {
               }
             }}
           />
+          <IconButton
+            onClick={handleMenuOpen}
+            sx={{
+              background: "linear-gradient(135deg, #f3f0ff 0%, #e8dcff 100%)",
+              width: { xs: 40, sm: 48 },
+              height: { xs: 40, sm: 48 },
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                background: "linear-gradient(135deg, #e8dcff 0%, #d9c8ff 100%)",
+              }
+            }}
+          >
+            <MoreVertIcon sx={{ color: '#9f59ff' }} />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={menuOpen}
+            onClose={handleMenuClose}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            PaperProps={{
+              sx: {
+                mt: 1,
+                borderRadius: 2,
+                minWidth: 180,
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+              }
+            }}
+          >
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" sx={{ color: '#9f59ff' }} />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </MenuItem>
+          </Menu>
         </Paper>
 
         {/* Messages Container */}

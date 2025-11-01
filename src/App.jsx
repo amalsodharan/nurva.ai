@@ -2,6 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ChatbotHome from "./components/chatBotHome";
 import Chat from "./components/chat";
+import LoginPage from "./components/login";
+import SignUp from "./components/signup";
 
 export default function App() {
   return (
@@ -10,6 +12,8 @@ export default function App() {
       <Route path="/" element={<ChatbotHome />} />
 
       {/* Chat screen */}
+      <Route path="/login" element={<LoginPage  />} />
+      <Route path="/signup" element={<SignUp  />} />
       <Route path="/chat" element={<Chat  />} />
 
       {/* 404 fallback */}
