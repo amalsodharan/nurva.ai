@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ChatbotHome from "./components/chatBotHome";
 import Chat from "./components/chat";
-import LoginPage from "./components/Login";
+import LoginPage from "./components/login";
 import SignUp from "./components/signup";
 
 export default function App() {
