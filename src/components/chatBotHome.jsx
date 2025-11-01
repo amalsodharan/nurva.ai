@@ -308,6 +308,10 @@ export default function ChatbotHome() {
                 variant="contained"
                 size="large"
                 endIcon={<ChevronRightIcon />}
+                onClick={() => {
+                    navigate('/login');
+                    setMobileMenuOpen(false);
+                }}
                 sx={{
                   bgcolor: '#9f59ff',
                   color: 'white',
@@ -636,7 +640,7 @@ export default function ChatbotHome() {
           Powered by Advanced AI Technology • Available 24/7
         </Typography>
         <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
-          © 2024 nurva.ai. All rights reserved. | Privacy Policy | Terms of Service
+          © 2025 nurva.ai. All rights reserved. | Privacy Policy | Terms of Service
         </Typography>
       </Box>
     </Box>
