@@ -189,6 +189,10 @@ export default function ChatbotHome() {
               variant="contained"
               fullWidth
               startIcon={<LoginIcon />}
+              onClick={() => {
+                  navigate('/login');
+                  setMobileMenuOpen(false);
+              }}
               sx={{
                 bgcolor: '#9f59ff',
                 color: 'white',
