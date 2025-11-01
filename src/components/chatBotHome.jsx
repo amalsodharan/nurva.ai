@@ -313,7 +313,7 @@ export default function ChatbotHome() {
                 size="large"
                 endIcon={<ChevronRightIcon />}
                 onClick={() => {
-                    navigate('/login');
+                    navigate('/signup');
                     setMobileMenuOpen(false);
                 }}
                 sx={{
