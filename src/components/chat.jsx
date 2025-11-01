@@ -555,7 +555,7 @@ function Chat() {
           >
             <TextField
               variant="standard"
-              placeholder="Type your message..."
+              placeholder="Type something cute and clever..."
               fullWidth
               multiline
               maxRows={4}
