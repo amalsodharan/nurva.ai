@@ -88,7 +88,8 @@ export default function ChatbotHome() {
 };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f7fa' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f7fa' }} 
+    id='top'>
       {/* Navigation */}
       <AppBar 
         position="sticky" 
@@ -114,23 +115,27 @@ export default function ChatbotHome() {
             >
                <img
                 src={appIcon}
+                onClick={() => scrollToSection('top')} 
                 alt="App Logo"
                 style={{
                   width: '100%',
                   height: 'auto',
                   objectFit: 'contain',
                   zIndex: 1,
+                  cursor: 'pointer'
                 }}
               />
             </Box>
             <Typography
               variant="h6"
+              onClick={() => scrollToSection('top')}
               sx={{
                 fontSize: { xs: '1.2rem', sm: '1.5rem' },
                 fontWeight: 500,
                 background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                cursor: 'pointer'
               }}
             >
               nurva.ai
