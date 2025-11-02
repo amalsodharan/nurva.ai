@@ -79,6 +79,14 @@ export default function ChatbotHome() {
     { title: 'Customer Support', desc: 'Provide instant assistance and resolve queries effectively' }
   ];
 
+  const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setMobileMenuOpen(false);
+  }
+};
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#f5f7fa' }}>
       {/* Navigation */}
@@ -131,9 +139,9 @@ export default function ChatbotHome() {
 
           {!isMobile ? (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-              <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }}>Features</Button>
-              <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }}>Use Cases</Button>
-              <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }}>About</Button>
+              <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }} onClick={() => scrollToSection('features')}>Features</Button>
+              <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }} onClick={() => scrollToSection('use_case')}>Use Cases</Button>
+              <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }} onClick={() => scrollToSection('about')}>About</Button>
               <Button
                 variant="contained"
                 startIcon={<LoginIcon />}
@@ -175,13 +183,13 @@ export default function ChatbotHome() {
         onClose={() => setMobileMenuOpen(false)}
       >
         <List sx={{ width: 250, pt: 3 }}>
-          <ListItem button>
+          <ListItem button  onClick={() => scrollToSection('features')}>
             <ListItemText primary="Features" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => scrollToSection('use_case')}>
             <ListItemText primary="Use Cases" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => scrollToSection('about')}>
             <ListItemText primary="About" />
           </ListItem>
           <ListItem>
@@ -368,7 +376,7 @@ export default function ChatbotHome() {
       </Box>
 
       {/* Features Section */}
-      <Box sx={{ py: { xs: 8, sm: 12, md: 16 }, px: { xs: 2, sm: 3 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, sm: 12, md: 16 }, px: { xs: 2, sm: 3 }, bgcolor: 'white' }} id='features'>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography
@@ -441,6 +449,7 @@ export default function ChatbotHome() {
 
       {/* Use Cases Section */}
       <Box
+        id='use_case'
         sx={{
           py: { xs: 8, sm: 12, md: 16 },
           px: { xs: 2, sm: 3 },
@@ -558,7 +567,7 @@ export default function ChatbotHome() {
           textAlign: 'center'
         }}
       >
-        <Container maxWidth="md">
+        <Container maxWidth="md" id='about'>
           <Typography
             variant="h2"
             sx={{
