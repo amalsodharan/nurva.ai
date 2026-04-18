@@ -80,9 +80,18 @@ function Chat() {
     }
   }, [navigate]);
 
-  // Auto scroll to bottom
-  useEffect(() => {
+  const isUserScrolledUp = useRef(false);
+
+  const handleScroll = () => {
     if (chatContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
+      isUserScrolledUp.current = scrollHeight - scrollTop - clientHeight > 50;
+    }
+  };
+
+  // Auto scroll to bottom only if not manually scrolled up
+  useEffect(() => {
+    if (chatContainerRef.current && !isUserScrolledUp.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages, isLoading, typingText]);
@@ -157,6 +166,8 @@ function Chat() {
     const input = userInput.trim();
     if (!input) return;
 
+    isUserScrolledUp.current = false;
+
     const newMessages = [...messages, { sender: "user", text: input }];
     setMessages(newMessages);
     setUserInput("");
@@ -200,7 +211,7 @@ function Chat() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #f5f7fa 0%, #e8ebf0 100%)',
+        bgcolor: 'background.default',
         py: { xs: 2, sm: 3 },
         px: { xs: 1, sm: 2 }
       }}
@@ -225,8 +236,9 @@ function Chat() {
             alignItems: "center",
             gap: 2,
             p: { xs: 2, sm: 2.5, md: 3 },
-            borderBottom: '2px solid #f5f5f5',
-            background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
+            bgcolor: 'background.paper',
             position: 'sticky',
             top: 0,
             zIndex: 10,
@@ -250,20 +262,11 @@ function Chat() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography 
               variant={isMobile ? "h6" : "h5"} 
-              fontWeight="600"
-              sx={{
-                background: 'linear-gradient(135deg, #333 0%, #666 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
+              fontWeight="700"
+              sx={{ color: 'text.primary' }}
             >
               Hi there, 
-              <span
-               style={{ 
-                background: 'linear-gradient(135deg, #9f59ff 0%, #7c3aed 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}> {userName}</span>
+              <span style={{ color: 'var(--mui-palette-primary-main, #7c3aed)' }}> {userName}</span>
             </Typography>
             <Typography 
               variant={isMobile ? "body2" : "body1"} 
@@ -341,17 +344,17 @@ function Chat() {
               width: '8px',
             },
             '&::-webkit-scrollbar-track': {
-              background: '#f1f1f1',
-              borderRadius: '10px',
+              background: 'transparent',
             },
             '&::-webkit-scrollbar-thumb': {
-              background: '#d1c4e9',
+              background: '#e2e8f0',
               borderRadius: '10px',
               '&:hover': {
-                background: '#b39ddb',
+                background: '#cbd5e1',
               }
             },
           }}
+          onScroll={handleScroll}
         >
           {/* Default Screen */}
           {defaultScreen && (
@@ -382,20 +385,13 @@ function Chat() {
                       width: { xs: 120, sm: 180, md: 220 },
                       height: { xs: 120, sm: 180, md: 220 },
                       borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #e8dcff 0%, #f3f0ff 100%)',
+                      bgcolor: 'primary.light',
+                      opacity: 0.8,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 20px 60px rgba(159, 89, 255, 0.2)',
                       position: 'relative',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        inset: -10,
-                        borderRadius: '50%',
-                        opacity: 0.1,
-                        filter: 'blur(20px)',
-                      }
+                      boxShadow: '0 8px 32px rgba(124, 58, 237, 0.2)',
                     }}
                   >
                     <img
@@ -443,22 +439,22 @@ function Chat() {
                         py: { xs: 1, sm: 1.5 },
                         borderRadius: '50px',
                         cursor: 'pointer',
-                        border: '2px solid #f3f0ff',
-                        bgcolor: 'white',
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        bgcolor: 'background.paper',
                         transition: 'all 0.3s ease',
                         fontSize: { xs: '0.875rem', sm: '1rem' },
                         '&:hover': {
-                          bgcolor: '#f3f0ff',
-                          borderColor: '#9f59ff',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 8px 16px rgba(159, 89, 255, 0.2)',
+                          bgcolor: 'background.default',
+                          borderColor: 'primary.main',
+                          transform: 'translateY(-2px)'
                         }
                       }}
                     >
                       <Typography 
                         variant="body2" 
                         sx={{ 
-                          color: '#9f59ff', 
+                          color: 'text.primary', 
                           fontWeight: 500,
                           fontSize: { xs: '0.875rem', sm: '1rem' }
                         }}
@@ -490,12 +486,9 @@ function Chat() {
                     width: { xs: 36, sm: 44 },
                     height: { xs: 36, sm: 44 },
                     bgcolor: msg.sender === "user" 
-                      ? "linear-gradient(135deg, #9f59ff 0%, #7c3aed 100%)" 
-                      : "#f3f0ff",
-                    background: msg.sender === "user" 
-                      ? "linear-gradient(135deg, #9f59ff 0%, #7c3aed 100%)" 
-                      : "#f3f0ff",
-                    color: msg.sender === "user" ? "#fff" : "#9f59ff",
+                      ? "primary.main" 
+                      : "primary.light",
+                    color: msg.sender === "user" ? "#fff" : "primary.dark",
                     boxShadow: msg.sender === "user" 
                       ? '0 4px 12px rgba(159, 89, 255, 0.3)'
                       : '0 4px 12px rgba(0, 0, 0, 0.08)',
@@ -511,10 +504,10 @@ function Chat() {
                     px: { xs: 2, sm: 3 },
                     borderRadius: 4,
                     fontSize: { xs: '1rem', sm: '1.1rem' },
-                    background: msg.sender === "user" 
-                      ? "linear-gradient(135deg, #9f59ff 0%, #8848e5 100%)"
-                      : "white",
-                    color: msg.sender === "user" ? "white" : "#333",
+                    bgcolor: msg.sender === "user" 
+                      ? "primary.main"
+                      : "background.paper",
+                    color: msg.sender === "user" ? "primary.contrastText" : "text.primary",
                     boxShadow: msg.sender === "user"
                       ? '0 8px 24px rgba(159, 89, 255, 0.3)'
                       : '0 8px 24px rgba(0, 0, 0, 0.08)',
@@ -647,15 +640,15 @@ function Chat() {
               display: "flex",
               alignItems: "center",
               borderRadius: '50px',
-              border: '2px solid #f0f0f0',
-              bgcolor: '#fafafa',
+              border: '1px solid',
+              borderColor: 'divider',
+              bgcolor: 'background.default',
               px: { xs: 2, sm: 3 },
               py: { xs: 0.5, sm: 1 },
               transition: 'all 0.3s ease',
               '&:focus-within': {
-                borderColor: '#9f59ff',
-                bgcolor: 'white',
-                boxShadow: '0 4px 12px rgba(159, 89, 255, 0.15)',
+                borderColor: 'primary.main',
+                bgcolor: 'background.paper',
               }
             }}
           >
@@ -708,23 +701,23 @@ function Chat() {
             onClick={sendMessage}
             disabled={!userInput.trim()}
             sx={{
-              background: userInput.trim() 
-                ? "linear-gradient(135deg, #9f59ff 0%, #8848e5 100%)"
-                : "#e0e0e0",
+              bgcolor: userInput.trim() 
+                ? "primary.main"
+                : "action.disabledBackground",
               color: "white",
               width: { xs: 44, sm: 52 },
               height: { xs: 44, sm: 52 },
               transition: 'all 0.3s ease',
               boxShadow: userInput.trim() 
-                ? '0 4px 12px rgba(159, 89, 255, 0.4)'
+                ? '0 4px 12px rgba(124, 58, 237, 0.4)'
                 : 'none',
               "&:hover": {
-                background: userInput.trim() 
-                  ? "linear-gradient(135deg, #8848e5 0%, #7c3aed 100%)"
-                  : "#e0e0e0",
+                bgcolor: userInput.trim() 
+                  ? "primary.dark"
+                  : "action.disabledBackground",
                 transform: userInput.trim() ? 'scale(1.05)' : 'none',
                 boxShadow: userInput.trim() 
-                  ? '0 6px 16px rgba(159, 89, 255, 0.5)'
+                  ? '0 6px 16px rgba(124, 58, 237, 0.5)'
                   : 'none',
               },
               "&:disabled": {

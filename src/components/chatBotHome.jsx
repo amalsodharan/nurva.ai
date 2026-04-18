@@ -32,6 +32,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import appIcon from '../assets/nurva.png';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function ChatbotHome() {
   const navigate = useNavigate();
@@ -131,11 +132,10 @@ export default function ChatbotHome() {
               onClick={() => scrollToSection('top')}
               sx={{
                 fontSize: { xs: '1.2rem', sm: '1.5rem' },
-                fontWeight: 500,
-                background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                cursor: 'pointer'
+                fontWeight: 700,
+                color: 'text.primary',
+                cursor: 'pointer',
+                letterSpacing: '-0.5px'
               }}
             >
               nurva.ai
@@ -149,25 +149,11 @@ export default function ChatbotHome() {
               <Button color="inherit" sx={{ color: 'text.primary', fontWeight: 500 }} onClick={() => scrollToSection('about')}>About</Button>
               <Button
                 variant="contained"
+                color="primary"
                 startIcon={<LoginIcon />}
                 onClick={() => {
                     navigate('/login');
                     setMobileMenuOpen(false);
-                }}
-                sx={{
-                  bgcolor: '#9f59ff',
-                  color: 'white',
-                  px: 3,
-                  py: 1,
-                  borderRadius: '50px',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                  boxShadow: '0 4px 12px rgba(159, 89, 255, 0.4)',
-                  '&:hover': {
-                    bgcolor: '#8848e5',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 16px rgba(159, 89, 255, 0.5)'
-                  }
                 }}
               >
                 Login
@@ -223,9 +209,18 @@ export default function ChatbotHome() {
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(159, 89, 255, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%)',
+          background: 'linear-gradient(-45deg, #f3e8ff, #f8fafc, #e0e7ff, #ffffff)',
+          backgroundSize: '400% 400%',
+          animation: 'gradientBG 15s ease infinite',
           py: { xs: 8, sm: 12, md: 16 },
-          px: { xs: 2, sm: 3 }
+          px: { xs: 2, sm: 3 },
+          position: 'relative',
+          overflow: 'hidden',
+          '@keyframes gradientBG': {
+            '0%': { backgroundPosition: '0% 50%' },
+            '50%': { backgroundPosition: '100% 50%' },
+            '100%': { backgroundPosition: '0% 50%' }
+          }
         }}
       >
         <Container maxWidth="lg">
@@ -275,29 +270,18 @@ export default function ChatbotHome() {
               variant="h1"
               sx={{
                 fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
-                fontWeight: 700,
+                fontWeight: 800,
                 mb: 2,
-                lineHeight: 1.2
+                lineHeight: 1.1,
+                color: 'text.primary',
+                letterSpacing: '-1px'
               }}
             >
-              <Box
-                component="span"
-                sx={{
-                  background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
-              >
-                Your Intelligent
-              </Box>
+              Your Intelligent
               <br />
               <Box
                 component="span"
-                sx={{
-                  background: 'linear-gradient(135deg, #2196F3 0%, #9f59ff 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
+                sx={{ color: 'primary.main' }}
               >
                 AI Companion
               </Box>
@@ -312,10 +296,11 @@ export default function ChatbotHome() {
                 mx: 'auto',
                 lineHeight: 1.8,
                 fontSize: { xs: '1.1rem', sm: '1.3rem' },
-                px: 2
+                px: 2,
+                fontWeight: 400
               }}
             >
-              Experience the future of conversation with <Box component="span" sx={{ fontWeight: 600, color: '#9f59ff' }}>nurva.ai</Box> - 
+              Experience the future of conversation with <Box component="span" sx={{ fontWeight: 600, color: 'primary.main' }}>nurva.ai</Box> - 
               a powerful AI-driven chat assistant designed to transform how you work, learn, and create. 
               Fast, personalized, and always secure.
             </Typography>
@@ -323,6 +308,7 @@ export default function ChatbotHome() {
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3, justifyContent: 'center', px: 2 }}>
               <Button
                 variant="contained"
+                color="primary"
                 size="large"
                 endIcon={<ChevronRightIcon />}
                 onClick={() => {
@@ -330,19 +316,16 @@ export default function ChatbotHome() {
                     setMobileMenuOpen(false);
                 }}
                 sx={{
-                  bgcolor: '#9f59ff',
-                  color: 'white',
-                  px: 5,
-                  py: 2.5,
+                  px: 4, py: 1.5,
                   borderRadius: '50px',
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
                   textTransform: 'none',
-                  boxShadow: '0 8px 24px rgba(159, 89, 255, 0.4)',
+                  fontWeight: 600,
+                  fontSize: '1.1rem',
+                  boxShadow: '0 8px 16px rgba(124, 58, 237, 0.25)',
+                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    bgcolor: '#8848e5',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 12px 32px rgba(159, 89, 255, 0.5)'
+                    boxShadow: '0 12px 24px rgba(124, 58, 237, 0.4)',
+                    transform: 'translateY(-2px)'
                   }
                 }}
               >
@@ -350,6 +333,7 @@ export default function ChatbotHome() {
               </Button>
               <Button
                 variant="outlined"
+                color="primary"
                 size="large"
                 startIcon={<ChatBubbleOutlineIcon />}
                 onClick={() => {
@@ -357,19 +341,19 @@ export default function ChatbotHome() {
                     setMobileMenuOpen(false);
                 }}
                 sx={{
-                  borderColor: '#9f59ff',
-                  color: '#9f59ff',
-                  px: 5,
-                  py: 2.5,
+                  px: 4, py: 1.5,
                   borderRadius: '50px',
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
                   textTransform: 'none',
-                  borderWidth: 2,
+                  fontWeight: 600,
+                  fontSize: '1.1rem',
+                  borderWidth: '2px',
+                  bgcolor: 'rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    borderWidth: 2,
-                    bgcolor: 'rgba(159, 89, 255, 0.05)',
-                    borderColor: '#8848e5'
+                    borderWidth: '2px',
+                    bgcolor: 'white',
+                    transform: 'translateY(-2px)'
                   }
                 }}
               >
@@ -381,8 +365,15 @@ export default function ChatbotHome() {
       </Box>
 
       {/* Features Section */}
-      <Box sx={{ py: { xs: 8, sm: 12, md: 16 }, px: { xs: 2, sm: 3 }, bgcolor: 'white' }} id='features'>
-        <Container maxWidth="lg">
+      <Box sx={{ py: { xs: 8, sm: 12, md: 16 }, px: { xs: 2, sm: 3 }, bgcolor: 'background.paper' }} id='features'>
+        <Container 
+          maxWidth="lg"
+          component={motion.div}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography
               variant="h2"
@@ -409,16 +400,7 @@ export default function ChatbotHome() {
                   sx={{
                     height: '100%',
                     width: '90%',
-                    mx: 'auto',
-                    borderRadius: 4,
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-                    transition: 'all 0.3s ease',
-                    background: 'linear-gradient(135deg, #ffffff 0%, rgba(159, 89, 255, 0.03) 100%)',
-                    border: '1px solid rgba(159, 89, 255, 0.1)',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 16px 40px rgba(159, 89, 255, 0.2)'
-                    }
+                    mx: 'auto'
                   }}
                 >
                   <CardContent sx={{ p: 4 }}>
@@ -427,13 +409,12 @@ export default function ChatbotHome() {
                         width: 64,
                         height: 64,
                         borderRadius: 3,
-                        background: 'linear-gradient(135deg, #9f59ff 0%, #8848e5 100%)',
+                        bgcolor: 'primary.light',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mb: 3,
-                        color: 'white',
-                        boxShadow: '0 8px 16px rgba(159, 89, 255, 0.3)'
+                        color: 'primary.dark'
                       }}
                     >
                       {feature.icon}
@@ -458,10 +439,17 @@ export default function ChatbotHome() {
         sx={{
           py: { xs: 8, sm: 12, md: 16 },
           px: { xs: 2, sm: 3 },
-          background: 'linear-gradient(135deg, rgba(159, 89, 255, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%)'
+          bgcolor: 'background.default'
         }}
       >
-        <Container maxWidth="lg">
+        <Container 
+          maxWidth="lg"
+          component={motion.div}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography
               variant="h2"
@@ -469,9 +457,7 @@ export default function ChatbotHome() {
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                 fontWeight: 700,
                 mb: 2,
-                background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                color: 'text.primary'
               }}
             >
               Built for Every Need
@@ -487,14 +473,8 @@ export default function ChatbotHome() {
                 <Paper
                   sx={{
                     p: 5,
-                    borderRadius: 4,
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-                    transition: 'all 0.3s ease',
-                    borderLeft: '4px solid #9f59ff',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: '0 16px 40px rgba(0, 0, 0, 0.12)'
-                    }
+                    borderLeft: '4px solid',
+                    borderColor: 'primary.main',
                   }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -503,13 +483,13 @@ export default function ChatbotHome() {
                         width: 40,
                         height: 40,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(159, 89, 255, 0.1)',
+                        bgcolor: 'primary.light',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}
                     >
-                      <ChevronRightIcon sx={{ color: '#9f59ff' }} />
+                      <ChevronRightIcon sx={{ color: 'primary.dark' }} />
                     </Box>
                     <Typography variant="h5" fontWeight="700" sx={{ color: '#333' }}>
                       {useCase.title}
@@ -526,8 +506,15 @@ export default function ChatbotHome() {
       </Box>
 
       {/* About Section */}
-      <Box sx={{ py: { xs: 8, sm: 12, md: 16 }, px: { xs: 2, sm: 3 }, bgcolor: 'white' }}>
-        <Container maxWidth="md">
+      <Box sx={{ py: { xs: 8, sm: 12, md: 16 }, px: { xs: 2, sm: 3 }, bgcolor: 'background.paper' }}>
+        <Container 
+          maxWidth="md"
+          component={motion.div}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <Typography
             variant="h2"
             sx={{
@@ -535,31 +522,31 @@ export default function ChatbotHome() {
               fontWeight: 700,
               mb: 6,
               textAlign: 'center',
-              background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              color: 'text.primary'
             }}
           >
             Why Choose nurva.ai?
           </Typography>
-          <Paper
-            sx={{
-              p: { xs: 4, sm: 6 },
-              borderRadius: 4,
-              background: 'linear-gradient(135deg, rgba(159, 89, 255, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%)',
-              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)'
-            }}
-          >
-            <Typography variant="h6" sx={{ mb: 3, lineHeight: 1.8, color: 'text.primary' }}>
-              nurva.ai combines cutting-edge artificial intelligence with intuitive design to deliver 
-              an unparalleled conversational experience. Whether you're managing complex work tasks, 
-              seeking creative inspiration, or simply need a reliable assistant, our AI is here to help.
-            </Typography>
-            <Typography variant="h6" sx={{ lineHeight: 1.8, color: 'text.primary' }}>
-              Built with privacy and security at its core, nurva.ai ensures your conversations remain 
-              confidential while providing intelligent, context-aware responses that adapt to your unique needs.
-            </Typography>
-          </Paper>
+          <Grid container spacing={6}>
+            <Grid item xs={12} md={6}>
+              <Box sx={{ p: 4, borderRadius: 4, bgcolor: 'background.default', height: '100%' }}>
+                <AutoAwesomeIcon sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>Intuitive Intelligence</Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.1rem' }}>
+                  nurva.ai combines cutting-edge artificial intelligence with an intuitive interface to deliver an unparalleled conversational experience. Whether managing complex tasks or seeking inspiration, our AI adapts seamlessly to you.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box sx={{ p: 4, borderRadius: 4, bgcolor: 'background.default', height: '100%' }}>
+                <SecurityIcon sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>Privacy First</Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.1rem' }}>
+                  Built with privacy and security at its core, nurva.ai ensures your conversations remain confidential while providing intelligent, context-aware responses tailored specifically for your needs.
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
 
@@ -568,11 +555,19 @@ export default function ChatbotHome() {
         sx={{
           py: { xs: 8, sm: 12, md: 16 },
           px: { xs: 2, sm: 3 },
-          background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
+          bgcolor: 'primary.dark',
           textAlign: 'center'
         }}
       >
-        <Container maxWidth="md" id='about'>
+        <Container 
+          maxWidth="md" 
+          id='about'
+          component={motion.div}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <Typography
             variant="h2"
             sx={{

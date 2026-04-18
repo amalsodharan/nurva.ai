@@ -106,7 +106,7 @@ export default function SignUp() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, rgba(159, 89, 255, 0.1) 0%, rgba(33, 150, 243, 0.1) 100%)',
+        bgcolor: 'background.default',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -120,9 +120,10 @@ export default function SignUp() {
           sx={{
             p: { xs: 4, sm: 6 },
             borderRadius: 4,
-            boxShadow: '0 8px 32px rgba(159, 89, 255, 0.15)',
-            border: '1px solid rgba(159, 89, 255, 0.1)',
-            bgcolor: 'rgba(255, 255, 255, 0.95)',
+            boxShadow: '0 4px 24px rgba(0, 0, 0, 0.04)',
+            border: '1px solid',
+            borderColor: 'divider',
+            bgcolor: 'background.paper',
             backdropFilter: 'blur(10px)'
           }}
         >
@@ -130,15 +131,16 @@ export default function SignUp() {
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Box
               sx={{
-                width: 80,
-                height: 80,
-                borderRadius: '50%',
+                width: 64,
+                height: 64,
+                borderRadius: 3,
+                bgcolor: 'primary.main',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto',
                 mb: 3,
-                boxShadow: '0 8px 24px rgba(159, 89, 255, 0.3)',
+                boxShadow: '0 8px 24px rgba(124, 58, 237, 0.25)',
                 overflow: 'hidden'
               }}
             >
@@ -157,9 +159,7 @@ export default function SignUp() {
               sx={{
                 fontWeight: 700,
                 mb: 1,
-                background: 'linear-gradient(135deg, #9f59ff 0%, #2196F3 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                color: 'text.primary'
               }}
             >
               Create Account
@@ -197,21 +197,11 @@ export default function SignUp() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Person sx={{ color: '#9f59ff' }} />
+                      <Person color="action" />
                     </InputAdornment>
                   ),
                 }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#9f59ff',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#9f59ff',
-                    }
-                  }
-                }}
+
               />
 
               <TextField
@@ -225,20 +215,9 @@ export default function SignUp() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Email sx={{ color: '#9f59ff' }} />
+                      <Email color="action" />
                     </InputAdornment>
                   ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#9f59ff',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#9f59ff',
-                    }
-                  }
                 }}
               />
 
@@ -253,7 +232,7 @@ export default function SignUp() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Lock sx={{ color: '#9f59ff' }} />
+                      <Lock color="action" />
                     </InputAdornment>
                   ),
                   endAdornment: (
@@ -266,17 +245,6 @@ export default function SignUp() {
                       </IconButton>
                     </InputAdornment>
                   ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#9f59ff',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#9f59ff',
-                    }
-                  }
                 }}
               />
 
@@ -291,7 +259,7 @@ export default function SignUp() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Lock sx={{ color: '#9f59ff' }} />
+                      <Lock color="action" />
                     </InputAdornment>
                   ),
                   endAdornment: (
@@ -305,17 +273,6 @@ export default function SignUp() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#9f59ff',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#9f59ff',
-                    }
-                  }
-                }}
               />
 
               <Button
@@ -324,23 +281,11 @@ export default function SignUp() {
                 variant="contained"
                 size="large"
                 disabled={loading}
+                color="primary"
                 sx={{
-                  bgcolor: '#9f59ff',
-                  color: 'white',
                   py: 1.5,
-                  borderRadius: 2,
                   fontSize: '1rem',
                   fontWeight: 600,
-                  textTransform: 'none',
-                  boxShadow: '0 4px 12px rgba(159, 89, 255, 0.4)',
-                  '&:hover': {
-                    bgcolor: '#8848e5',
-                    boxShadow: '0 6px 16px rgba(159, 89, 255, 0.5)'
-                  },
-                  '&:disabled': {
-                    bgcolor: 'rgba(159, 89, 255, 0.5)',
-                    color: 'white'
-                  }
                 }}
               >
                 {loading ? (
@@ -361,9 +306,9 @@ export default function SignUp() {
                 type="button"
                 onClick={() => navigate('/login')}
                 sx={{
-                  color: '#9f59ff',
+                  color: 'primary.main',
                   textDecoration: 'none',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   '&:hover': {
                     textDecoration: 'underline'
                   }
