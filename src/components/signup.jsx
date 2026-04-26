@@ -66,7 +66,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch('https://api-nurvaai.vercel.app//api/signUp', {
+      const response = await fetch('https://api-nurvaai.vercel.app/api/signUp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
