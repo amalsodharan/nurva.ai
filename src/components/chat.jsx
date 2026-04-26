@@ -50,7 +50,7 @@ function Chat() {
     const token = localStorage.getItem('token');
     const fetchUserData = async () => {
       try {
-        const response = await fetch("https://olliebotai-2-o.onrender.com/api/me", {
+        const response = await fetch("https://api-nurvaai.vercel.app//api/me", {
           method: "GET",
           headers: {
             "Authorization": token
@@ -177,7 +177,7 @@ function Chat() {
     try {
       const token = localStorage.getItem('token');
       
-      const res = await fetch("https://olliebotai-2-o.onrender.com/api/chat", {
+      const res = await fetch("https://api-nurvaai.vercel.app//api/chat", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

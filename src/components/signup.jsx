@@ -66,7 +66,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch('https://olliebotai-2-o.onrender.com/api/signUp', {
+      const response = await fetch('https://api-nurvaai.vercel.app//api/signUp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
